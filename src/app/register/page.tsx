@@ -177,7 +177,7 @@ export default function RegisterPage() {
                 >
                   <div className="font-bold text-foreground">BASIC</div>
                   <div className="text-xs text-muted-foreground mt-1">
-                    {billingType === "Permanen" ? "Rp 200.000" : "Rp 50.000 / bln"}
+                    {billingType === "Permanen" ? <span>Rp 200.000</span> : <span>Rp 50.000 / bln</span>}
                   </div>
                   <div className="text-[10px] mt-3 font-medium opacity-80">Cocok untuk UMKM Kecil</div>
                 </div>
@@ -194,9 +194,9 @@ export default function RegisterPage() {
                   <div className="font-bold text-blue-600">BISNIS</div>
                   <div className="text-xs text-muted-foreground mt-1">
                     {billingType === "Permanen" ? (
-                      <>Rp 275.000 <span className="line-through text-[10px] ml-1 opacity-50">350k</span></>
+                      <span>Rp 275.000 <span className="line-through text-[10px] ml-1 opacity-50">350k</span></span>
                     ) : (
-                      "Rp 100.000 / bln"
+                      <span>Rp 100.000 / bln</span>
                     )}
                   </div>
                   <div className="text-[10px] mt-3 font-medium opacity-80">Multi Kasir & Cloud</div>
@@ -213,9 +213,9 @@ export default function RegisterPage() {
                   <div className="font-bold text-amber-500">PREMIUM</div>
                   <div className="text-xs text-muted-foreground mt-1">
                     {billingType === "Permanen" ? (
-                      <>Rp 350.000 <span className="line-through text-[10px] ml-1 opacity-50">450k</span></>
+                      <span>Rp 350.000 <span className="line-through text-[10px] ml-1 opacity-50">450k</span></span>
                     ) : (
-                      "Rp 200.000 / bln"
+                      <span>Rp 200.000 / bln</span>
                     )}
                   </div>
                   <div className="text-[10px] mt-3 font-medium opacity-80">Cabang & AI Fitur</div>
