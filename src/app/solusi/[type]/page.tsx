@@ -4,6 +4,8 @@ import { ArrowRight, CheckCircle2, Coffee, ShoppingBag, Wrench, Shirt, Utensils,
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+export const runtime = 'edge';
+
 const solusiData: Record<string, any> = {
   "coffee-shop": { 
     title: "Aplikasi Kasir Coffee Shop", 
