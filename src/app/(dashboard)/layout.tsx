@@ -186,66 +186,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </Link>
           </div>
           
-          {/* DEMO PLAN SWITCHER */}
-          <div className="px-4 pt-4 pb-2 border-b border-dashed mx-2 mb-2">
-            <p className="text-[10px] font-bold text-primary uppercase mb-2 tracking-wider flex items-center justify-between">
-              <span>Demo Plan Mode</span>
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            </p>
-            <div className="flex bg-muted rounded-lg p-1 text-[10px] font-medium border">
-              <button 
-                onClick={() => updateUserPlan('Basic')}
-                className={`flex-1 py-1.5 text-center rounded-md transition-all ${user.plan === 'Basic' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
-              >
-                BASIC
-              </button>
-              <button 
-                onClick={() => updateUserPlan('Bisnis')}
-                className={`flex-1 py-1.5 text-center rounded-md transition-all ${user.plan === 'Bisnis' ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
-              >
-                BISNIS
-              </button>
-              <button 
-                onClick={() => updateUserPlan('Premium')}
-                className={`flex-1 py-1.5 text-center rounded-md transition-all ${user.plan === 'Premium' || user.plan === 'Enterprise' ? 'bg-background shadow-sm text-primary font-bold' : 'text-muted-foreground hover:text-foreground'}`}
-              >
-                PREMIUM
-              </button>
-            </div>
-          </div>
 
-          {/* DEMO BUSINESS SWITCHER */}
-          <div className="px-4 pb-4 border-b border-dashed mx-2 mb-2">
-            <p className="text-[10px] font-bold text-primary uppercase mb-2 tracking-wider flex items-center justify-between">
-              <span>Demo Business Type</span>
-            </p>
-            <div className="grid grid-cols-2 gap-1 bg-muted rounded-lg p-1 text-[10px] font-medium border">
-              <button 
-                onClick={() => updateUserBusinessType('Retail')}
-                className={`py-1.5 text-center rounded-md transition-all ${user.business_type === 'Retail' ? 'bg-background shadow-sm text-primary font-bold' : 'text-muted-foreground hover:text-foreground'}`}
-              >
-                Retail
-              </button>
-              <button 
-                onClick={() => updateUserBusinessType('Bengkel')}
-                className={`py-1.5 text-center rounded-md transition-all ${user.business_type === 'Bengkel' ? 'bg-background shadow-sm text-primary font-bold' : 'text-muted-foreground hover:text-foreground'}`}
-              >
-                Bengkel
-              </button>
-              <button 
-                onClick={() => updateUserBusinessType('Cafe')}
-                className={`py-1.5 text-center rounded-md transition-all ${user.business_type === 'Cafe' ? 'bg-background shadow-sm text-primary font-bold' : 'text-muted-foreground hover:text-foreground'}`}
-              >
-                Cafe
-              </button>
-              <button 
-                onClick={() => updateUserBusinessType('Laundry')}
-                className={`py-1.5 text-center rounded-md transition-all ${user.business_type === 'Laundry' ? 'bg-background shadow-sm text-primary font-bold' : 'text-muted-foreground hover:text-foreground'}`}
-              >
-                Laundry
-              </button>
-            </div>
-          </div>
 
           <div className="flex-1 overflow-auto py-2">
             <nav className="grid items-start px-4 text-sm gap-1">
