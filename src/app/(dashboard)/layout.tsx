@@ -224,9 +224,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <div className="flex items-center gap-2 shrink-0">
             {/* Notification Bell */}
             <DropdownMenu>
-              <DropdownMenuTrigger className={buttonVariants({ variant: "outline", size: "icon", className: "rounded-full relative shrink-0 h-9 w-9" })}>
-                <Bell className="h-4 w-4" />
-                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-destructive rounded-full" />
+              <DropdownMenuTrigger className={buttonVariants({ variant: "outline", size: "icon", className: "rounded-full shrink-0 h-9 w-9 p-0" })}>
+                <div className="relative w-full h-full flex items-center justify-center">
+                  <Bell className="h-4 w-4" />
+                  <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-destructive rounded-full" />
+                </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-80">
                 <DropdownMenuLabel>Notifikasi Baru</DropdownMenuLabel>
@@ -254,12 +256,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
             {/* User Avatar Menu */}
             <DropdownMenu>
-              <DropdownMenuTrigger className={buttonVariants({ variant: "ghost", size: "icon", className: "rounded-full shrink-0 h-9 w-9" })}>
-                <Avatar className="h-9 w-9 border border-border/50 hover:opacity-80 transition-opacity">
-                  <AvatarImage src="https://github.com/shadcn.png" alt="User Avatar" />
-                  <AvatarFallback>{user.name.substring(0, 2).toUpperCase()}</AvatarFallback>
-                </Avatar>
-                <span className="sr-only">Toggle user menu</span>
+              <DropdownMenuTrigger className={buttonVariants({ variant: "ghost", size: "icon", className: "rounded-full shrink-0 h-9 w-9 p-0" })}>
+                <div className="w-full h-full flex items-center justify-center rounded-full overflow-hidden">
+                  <Avatar className="h-9 w-9 border border-border/50 hover:opacity-80 transition-opacity">
+                    <AvatarImage src="https://github.com/shadcn.png" alt="User Avatar" />
+                    <AvatarFallback>{user.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+                  </Avatar>
+                  <span className="sr-only">Toggle user menu</span>
+                </div>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-64">
                 <DropdownMenuGroup>
