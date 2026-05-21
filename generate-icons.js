@@ -34,7 +34,7 @@ async function generateIcons() {
       "name": "DEVELZY POS",
       "short_name": "DEVELZY",
       "description": "Aplikasi Kasir Modern Premium Berbasis Cloud",
-      "start_url": "/dashboard",
+      "start_url": "/login",
       "display": "standalone",
       "background_color": "#ffffff",
       "theme_color": "#0F4BFF",
