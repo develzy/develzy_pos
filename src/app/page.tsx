@@ -3,6 +3,7 @@ import { ArrowRight, CheckCircle2, ChevronRight, Store, BarChart3, Cloud, Shield
 import Link from "next/link";
 import { DemoModal } from "@/components/DemoModal";
 import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import { DashboardMockup } from "@/components/DashboardMockup";
 
 export default function Home() {
@@ -367,20 +368,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="border-t py-12 bg-background">
-        <div className="container mx-auto px-4 text-center text-muted-foreground">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="flex h-8 w-8 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-sm shadow-primary/50">
-              <Store className="h-5 w-5" />
-            </div>
-            <span className="text-xl font-bold tracking-tight text-foreground">DEVELZY<span className="text-primary">POS</span></span>
-          </div>
-          <p className="mb-6">Aplikasi Permanen, Usaha Makin Paten.</p>
-          <div className="text-sm">
-            &copy; {new Date().getFullYear()} DEVELZY POS. All rights reserved.
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

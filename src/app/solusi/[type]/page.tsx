@@ -1,4 +1,5 @@
 import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2, Coffee, ShoppingBag, Wrench, Shirt, Utensils, Scissors, Store, Star, Users, PieChart, Receipt, ClipboardList } from "lucide-react";
 import Link from "next/link";
@@ -344,6 +345,7 @@ export default async function SolusiPage({ params }: { params: Promise<{ type: s
         </section>
         
       </main>
+      <SiteFooter />
     </div>
   );
 }
