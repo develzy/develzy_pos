@@ -224,11 +224,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <div className="flex items-center gap-2 shrink-0">
             {/* Notification Bell */}
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="icon" className="rounded-full relative shrink-0 h-9 w-9">
-                  <Bell className="h-4 w-4" />
-                  <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-destructive rounded-full" />
-                </Button>
+              <DropdownMenuTrigger className={buttonVariants({ variant: "outline", size: "icon", className: "rounded-full relative shrink-0 h-9 w-9" })}>
+                <Bell className="h-4 w-4" />
+                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-destructive rounded-full" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-80">
                 <DropdownMenuLabel>Notifikasi Baru</DropdownMenuLabel>
@@ -272,14 +270,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                   </DropdownMenuLabel>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem asChild>
-                  <Link href="/settings" className="cursor-pointer w-full flex items-center">Profil Saya</Link>
+                <DropdownMenuItem className="cursor-pointer font-medium" onClick={() => router.push('/settings')}>
+                  Profil Saya
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/settings" className="cursor-pointer w-full flex items-center">Tagihan & Paket ({user.plan})</Link>
+                <DropdownMenuItem className="cursor-pointer font-medium" onClick={() => router.push('/settings')}>
+                  Tagihan & Paket ({user.plan})
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/settings" className="cursor-pointer w-full flex items-center">Pengaturan Toko & Outlet</Link>
+                <DropdownMenuItem className="cursor-pointer font-medium" onClick={() => router.push('/settings')}>
+                  Pengaturan Toko & Outlet
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="text-destructive cursor-pointer font-semibold" onClick={logout}>
