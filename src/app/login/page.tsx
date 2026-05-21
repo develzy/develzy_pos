@@ -40,8 +40,13 @@ function LoginForm() {
     const success = await login(email, password);
     
     if (success) {
+      const user = useAppStore.getState().user;
       toast.success("Login Berhasil!");
-      router.push('/dashboard');
+      if (user?.role === 'superadmin') {
+        router.push('/developer');
+      } else {
+        router.push('/dashboard');
+      }
     } else {
       toast.error("Email atau password salah!");
       setIsLoading(false);

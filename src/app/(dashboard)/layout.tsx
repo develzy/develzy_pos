@@ -64,113 +64,118 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       : "flex flex-col items-center justify-center w-full h-full text-muted-foreground hover:text-primary active:scale-95 transition-all";
   };
 
-  const NavLinks = () => (
-    <>
-      <Link href="/dashboard" className={getLinkClass("/dashboard")}>
-        <LayoutDashboard className="h-5 w-5" />
-        <span>Dashboard</span>
-      </Link>
-      <Link href="/pos" className={getLinkClass("/pos")}>
-        <ShoppingCart className="h-5 w-5" />
-        <span>Kasir (POS)</span>
-      </Link>
-      {user.business_type === 'Bengkel' && (
-        <>
-          <div className="mt-4 mb-2 px-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">Modul Bengkel</div>
-          <Link href="/services" className={getLinkClass("/services")}>
-            <Wrench className="h-5 w-5" />
-            <span>Jasa Servis</span>
-          </Link>
-          <Link href="/products" className={getLinkClass("/products")}>
-            <Package className="h-5 w-5" />
-            <span>Sparepart</span>
-          </Link>
-        </>
-      )}
-
-      {user.business_type === 'Retail' && (
-        <>
-          <div className="mt-4 mb-2 px-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">Modul Toko / Retail</div>
-          <Link href="/products" className={getLinkClass("/products")}>
-            <Package className="h-5 w-5" />
-            <span>Katalog Produk</span>
-          </Link>
-        </>
-      )}
-      
-      {user.business_type !== 'Bengkel' && user.business_type !== 'Retail' && (
-        <>
-          <div className="mt-4 mb-2 px-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">Katalog Utama</div>
-          <Link href="/products" className={getLinkClass("/products")}>
-            <Package className="h-5 w-5" />
-            <span>Produk / Menu</span>
-          </Link>
-          <Link href="/services" className={getLinkClass("/services")}>
-            <Wrench className="h-5 w-5" />
-            <span>Layanan / Jasa</span>
-          </Link>
-        </>
-      )}
-
-      <div className="mt-4 mb-2 px-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">Manajemen</div>
-      
-      {/* Premium Only Feature */}
-      {user.plan === 'Premium' || user.plan === 'Enterprise' ? (
-        <Link href="/customers" className={getLinkClass("/customers")}>
-          <Users className="h-5 w-5" />
-          <span>Pelanggan</span>
-        </Link>
-      ) : (
-        <div className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-muted-foreground opacity-50 cursor-not-allowed font-medium">
-          <Users className="h-5 w-5" />
-          <span className="flex-1">Pelanggan</span>
-          <Lock className="h-4 w-4" />
-        </div>
-      )}
-
-      {/* Bisnis / Premium Only Feature */}
-      {user.plan !== 'Basic' ? (
-        <Link href="/employees" className={getLinkClass("/employees")}>
-          <UserCog className="h-5 w-5" />
-          <span>Karyawan</span>
-        </Link>
-      ) : (
-        <div className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-muted-foreground opacity-50 cursor-not-allowed font-medium">
-          <UserCog className="h-5 w-5" />
-          <span className="flex-1">Karyawan</span>
-          <Lock className="h-4 w-4" />
-        </div>
-      )}
-
-      {/* Bisnis / Premium Only Feature */}
-      {user.plan !== 'Basic' ? (
-        <Link href="/analytics" className={getLinkClass("/analytics")}>
-          <BarChart3 className="h-5 w-5" />
-          <span>Laporan</span>
-        </Link>
-      ) : (
-        <div className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-muted-foreground opacity-50 cursor-not-allowed font-medium">
-          <BarChart3 className="h-5 w-5" />
-          <span className="flex-1">Laporan</span>
-          <Lock className="h-4 w-4" />
-        </div>
-      )}
-
-      <Link href="/settings" className={getLinkClass("/settings")}>
-        <Settings className="h-5 w-5" />
-        <span>Pengaturan</span>
-      </Link>
-
-      {user.role === 'superadmin' && (
-        <div className="mt-4">
+  const NavLinks = () => {
+    if (user.role === 'superadmin') {
+      return (
+        <div className="mt-2">
+          <div className="mb-2 px-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">Super Admin</div>
           <Link href="/developer" className={getLinkClass("/developer")}>
             <Server className="h-5 w-5" />
             <span>Developer Panel</span>
           </Link>
         </div>
-      )}
-    </>
-  );
+      );
+    }
+
+    return (
+      <>
+        <Link href="/dashboard" className={getLinkClass("/dashboard")}>
+          <LayoutDashboard className="h-5 w-5" />
+          <span>Dashboard</span>
+        </Link>
+        <Link href="/pos" className={getLinkClass("/pos")}>
+          <ShoppingCart className="h-5 w-5" />
+          <span>Kasir (POS)</span>
+        </Link>
+        {user.business_type === 'Bengkel' && (
+          <>
+            <div className="mt-4 mb-2 px-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">Modul Bengkel</div>
+            <Link href="/services" className={getLinkClass("/services")}>
+              <Wrench className="h-5 w-5" />
+              <span>Jasa Servis</span>
+            </Link>
+            <Link href="/products" className={getLinkClass("/products")}>
+              <Package className="h-5 w-5" />
+              <span>Sparepart</span>
+            </Link>
+          </>
+        )}
+
+        {user.business_type === 'Retail' && (
+          <>
+            <div className="mt-4 mb-2 px-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">Modul Toko / Retail</div>
+            <Link href="/products" className={getLinkClass("/products")}>
+              <Package className="h-5 w-5" />
+              <span>Katalog Produk</span>
+            </Link>
+          </>
+        )}
+        
+        {user.business_type !== 'Bengkel' && user.business_type !== 'Retail' && (
+          <>
+            <div className="mt-4 mb-2 px-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">Katalog Utama</div>
+            <Link href="/products" className={getLinkClass("/products")}>
+              <Package className="h-5 w-5" />
+              <span>Produk / Menu</span>
+            </Link>
+            <Link href="/services" className={getLinkClass("/services")}>
+              <Wrench className="h-5 w-5" />
+              <span>Layanan / Jasa</span>
+            </Link>
+          </>
+        )}
+
+        <div className="mt-4 mb-2 px-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">Manajemen</div>
+        
+        {/* Premium Only Feature */}
+        {user.plan === 'Premium' || user.plan === 'Enterprise' ? (
+          <Link href="/customers" className={getLinkClass("/customers")}>
+            <Users className="h-5 w-5" />
+            <span>Pelanggan</span>
+          </Link>
+        ) : (
+          <div className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-muted-foreground opacity-50 cursor-not-allowed font-medium">
+            <Users className="h-5 w-5" />
+            <span className="flex-1">Pelanggan</span>
+            <Lock className="h-4 w-4" />
+          </div>
+        )}
+
+        {/* Bisnis / Premium Only Feature */}
+        {user.plan !== 'Basic' ? (
+          <Link href="/employees" className={getLinkClass("/employees")}>
+            <UserCog className="h-5 w-5" />
+            <span>Karyawan</span>
+          </Link>
+        ) : (
+          <div className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-muted-foreground opacity-50 cursor-not-allowed font-medium">
+            <UserCog className="h-5 w-5" />
+            <span className="flex-1">Karyawan</span>
+            <Lock className="h-4 w-4" />
+          </div>
+        )}
+
+        {/* Bisnis / Premium Only Feature */}
+        {user.plan !== 'Basic' ? (
+          <Link href="/analytics" className={getLinkClass("/analytics")}>
+            <BarChart3 className="h-5 w-5" />
+            <span>Laporan</span>
+          </Link>
+        ) : (
+          <div className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-muted-foreground opacity-50 cursor-not-allowed font-medium">
+            <BarChart3 className="h-5 w-5" />
+            <span className="flex-1">Laporan</span>
+            <Lock className="h-4 w-4" />
+          </div>
+        )}
+
+        <Link href="/settings" className={getLinkClass("/settings")}>
+          <Settings className="h-5 w-5" />
+          <span>Pengaturan</span>
+        </Link>
+      </>
+    );
+  };
 
   return (
     <div className="grid h-[100dvh] w-full max-w-[100vw] overflow-hidden md:grid-cols-[260px_1fr]">
@@ -301,31 +306,33 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       </div>
 
       {/* Mobile Bottom Navigation */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 border-t bg-background/95 backdrop-blur-md z-40 pb-safe shadow-[0_-4px_20px_rgba(0,0,0,0.05)] dark:shadow-[0_-4px_20px_rgba(0,0,0,0.2)]">
-        <nav className="flex justify-around items-center h-16 px-1">
-          <Link href="/dashboard" className={getMobileLinkClass("/dashboard")}>
-            <LayoutDashboard className="h-5 w-5 mb-1" />
-            <span className="text-[10px] font-medium">Beranda</span>
-          </Link>
-          <Link href="/pos" className={getMobileLinkClass("/pos")}>
-            <ShoppingCart className="h-5 w-5 mb-1" />
-            <span className="text-[10px] font-medium">Kasir</span>
-          </Link>
-          <div className="relative -top-5 flex flex-col items-center justify-center">
-            <Link href="/pos" className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 hover:scale-105 active:scale-95 transition-all">
-              <Plus className="h-6 w-6" />
+      {user.role !== 'superadmin' && (
+        <div className="md:hidden fixed bottom-0 left-0 right-0 border-t bg-background/95 backdrop-blur-md z-40 pb-safe shadow-[0_-4px_20px_rgba(0,0,0,0.05)] dark:shadow-[0_-4px_20px_rgba(0,0,0,0.2)]">
+          <nav className="flex justify-around items-center h-16 px-1">
+            <Link href="/dashboard" className={getMobileLinkClass("/dashboard")}>
+              <LayoutDashboard className="h-5 w-5 mb-1" />
+              <span className="text-[10px] font-medium">Beranda</span>
             </Link>
-          </div>
-          <Link href="/products" className={getMobileLinkClass("/products")}>
-            <Package className="h-5 w-5 mb-1" />
-            <span className="text-[10px] font-medium">Produk</span>
-          </Link>
-          <Link href="/settings" className={getMobileLinkClass("/settings")}>
-            <Settings className="h-5 w-5 mb-1" />
-            <span className="text-[10px] font-medium">Setelan</span>
-          </Link>
-        </nav>
-      </div>
+            <Link href="/pos" className={getMobileLinkClass("/pos")}>
+              <ShoppingCart className="h-5 w-5 mb-1" />
+              <span className="text-[10px] font-medium">Kasir</span>
+            </Link>
+            <div className="relative -top-5 flex flex-col items-center justify-center">
+              <Link href="/pos" className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 hover:scale-105 active:scale-95 transition-all">
+                <Plus className="h-6 w-6" />
+              </Link>
+            </div>
+            <Link href="/products" className={getMobileLinkClass("/products")}>
+              <Package className="h-5 w-5 mb-1" />
+              <span className="text-[10px] font-medium">Produk</span>
+            </Link>
+            <Link href="/settings" className={getMobileLinkClass("/settings")}>
+              <Settings className="h-5 w-5 mb-1" />
+              <span className="text-[10px] font-medium">Setelan</span>
+            </Link>
+          </nav>
+        </div>
+      )}
     </div>
   );
 }
