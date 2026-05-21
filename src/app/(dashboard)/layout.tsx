@@ -208,7 +208,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col min-w-0">
+      <div className="flex flex-col h-full overflow-hidden min-w-0">
         <header className="flex h-16 items-center gap-2 md:gap-4 border-b bg-background/80 px-3 md:px-6 lg:h-[72px] backdrop-blur-xl sticky top-0 z-30">
           <div className="md:hidden flex items-center gap-1.5 font-bold tracking-tight shrink-0">
             <div className="flex h-7 w-7 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-sm shadow-primary/50">
