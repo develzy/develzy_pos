@@ -4,12 +4,15 @@ import { useState } from "react";
 import Link from "next/link";
 import { 
   Store, LayoutDashboard, ShoppingCart, Package, Users, BarChart3, Settings, 
-  ArrowLeft, Bell, Search, Activity, CheckCircle2, TrendingUp, CreditCard 
+  ArrowLeft, Bell, Search, Activity, CheckCircle2, TrendingUp, CreditCard,
+  Lock, Wrench, UserCog
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function DemoPage() {
   const [activeTab, setActiveTab] = useState("dashboard");
+  const [demoPlan, setDemoPlan] = useState("Premium");
+  const [demoType, setDemoType] = useState("Retail");
 
   return (
     <div className="flex h-screen w-full bg-slate-50 dark:bg-slate-950 overflow-hidden text-foreground">
@@ -26,40 +29,127 @@ export default function DemoPage() {
         </div>
         
         <div className="flex-1 overflow-y-auto py-4 px-3 flex flex-col gap-1">
-          <div className="px-3 text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Menu Demo</div>
+          {/* SIMULATOR CONTROLS */}
+          <div className="mb-6 p-3 bg-muted/30 rounded-xl border border-border/50">
+            <div className="text-[10px] font-bold text-primary uppercase tracking-wider mb-3 flex items-center gap-1.5">
+              <Settings className="w-3 h-3" /> Simulator UI
+            </div>
+            <div className="space-y-3">
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Pilih Paket</label>
+                <select 
+                  value={demoPlan} 
+                  onChange={(e) => setDemoPlan(e.target.value)}
+                  className="w-full h-8 text-xs bg-background border border-border/50 rounded-md px-2 text-foreground focus:ring-1 focus:ring-primary outline-none"
+                >
+                  <option value="Basic">Basic (Gratis)</option>
+                  <option value="Premium">Premium</option>
+                  <option value="Enterprise">Enterprise</option>
+                </select>
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Jenis Usaha</label>
+                <select 
+                  value={demoType} 
+                  onChange={(e) => setDemoType(e.target.value)}
+                  className="w-full h-8 text-xs bg-background border border-border/50 rounded-md px-2 text-foreground focus:ring-1 focus:ring-primary outline-none"
+                >
+                  <option value="Retail">Toko Retail</option>
+                  <option value="F&B">F&B / Cafe</option>
+                  <option value="Bengkel">Bengkel Motor/Mobil</option>
+                  <option value="Barbershop">Barbershop / Salon</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div className="px-3 text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1 mt-2">Menu Utama</div>
           
-          {[
-            { id: "dashboard", icon: LayoutDashboard, label: "Dashboard" },
-            { id: "pos", icon: ShoppingCart, label: "Kasir (POS)" },
-            { id: "products", icon: Package, label: "Katalog Produk" },
-            { id: "customers", icon: Users, label: "Pelanggan" },
-            { id: "analytics", icon: BarChart3, label: "Laporan AI" },
-          ].map(tab => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-left w-full ${
-                activeTab === tab.id 
-                  ? "bg-primary text-primary-foreground shadow-md" 
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
-              }`}
-            >
-              <tab.icon className="h-5 w-5" />
-              {tab.label}
+          <button onClick={() => setActiveTab("dashboard")} className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-left w-full ${activeTab === "dashboard" ? "bg-primary text-primary-foreground shadow-md" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}>
+            <LayoutDashboard className="h-5 w-5" /> Dashboard
+          </button>
+          <button onClick={() => setActiveTab("pos")} className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-left w-full ${activeTab === "pos" ? "bg-primary text-primary-foreground shadow-md" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}>
+            <ShoppingCart className="h-5 w-5" /> Kasir (POS)
+          </button>
+
+          {/* DYNAMIC CATALOG MENUS */}
+          {demoType === 'Bengkel' && (
+            <>
+              <div className="mt-4 mb-1 px-3 text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Modul Bengkel</div>
+              <button onClick={() => setActiveTab("services")} className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-left w-full ${activeTab === "services" ? "bg-primary text-primary-foreground shadow-md" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}>
+                <Wrench className="h-5 w-5" /> Jasa Servis
+              </button>
+              <button onClick={() => setActiveTab("products")} className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-left w-full ${activeTab === "products" ? "bg-primary text-primary-foreground shadow-md" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}>
+                <Package className="h-5 w-5" /> Sparepart
+              </button>
+            </>
+          )}
+
+          {demoType === 'Retail' && (
+            <>
+              <div className="mt-4 mb-1 px-3 text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Modul Retail</div>
+              <button onClick={() => setActiveTab("products")} className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-left w-full ${activeTab === "products" ? "bg-primary text-primary-foreground shadow-md" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}>
+                <Package className="h-5 w-5" /> Katalog Produk
+              </button>
+            </>
+          )}
+
+          {demoType !== 'Bengkel' && demoType !== 'Retail' && (
+            <>
+              <div className="mt-4 mb-1 px-3 text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Katalog Utama</div>
+              <button onClick={() => setActiveTab("products")} className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-left w-full ${activeTab === "products" ? "bg-primary text-primary-foreground shadow-md" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}>
+                <Package className="h-5 w-5" /> Produk / Menu
+              </button>
+              <button onClick={() => setActiveTab("services")} className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-left w-full ${activeTab === "services" ? "bg-primary text-primary-foreground shadow-md" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}>
+                <Wrench className="h-5 w-5" /> Layanan / Jasa
+              </button>
+            </>
+          )}
+
+          {/* DYNAMIC MANAGEMENT MENUS */}
+          <div className="mt-4 mb-1 px-3 text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Manajemen</div>
+          
+          {demoPlan === 'Premium' || demoPlan === 'Enterprise' ? (
+            <button onClick={() => setActiveTab("customers")} className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-left w-full ${activeTab === "customers" ? "bg-primary text-primary-foreground shadow-md" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}>
+              <Users className="h-5 w-5" /> Pelanggan
             </button>
-          ))}
+          ) : (
+            <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground opacity-50 cursor-not-allowed">
+              <Users className="h-5 w-5" /> <span className="flex-1 text-left">Pelanggan</span> <Lock className="h-4 w-4" />
+            </div>
+          )}
+
+          {demoPlan !== 'Basic' ? (
+            <button onClick={() => setActiveTab("employees")} className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-left w-full ${activeTab === "employees" ? "bg-primary text-primary-foreground shadow-md" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}>
+              <UserCog className="h-5 w-5" /> Karyawan
+            </button>
+          ) : (
+            <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground opacity-50 cursor-not-allowed">
+              <UserCog className="h-5 w-5" /> <span className="flex-1 text-left">Karyawan</span> <Lock className="h-4 w-4" />
+            </div>
+          )}
+
+          {demoPlan !== 'Basic' ? (
+            <button onClick={() => setActiveTab("analytics")} className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors text-left w-full ${activeTab === "analytics" ? "bg-primary text-primary-foreground shadow-md" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}>
+              <BarChart3 className="h-5 w-5" /> Laporan
+            </button>
+          ) : (
+            <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground opacity-50 cursor-not-allowed">
+              <BarChart3 className="h-5 w-5" /> <span className="flex-1 text-left">Laporan</span> <Lock className="h-4 w-4" />
+            </div>
+          )}
           
-          <div className="mt-8 px-3 text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Sistem</div>
+          <div className="mt-4 px-3 text-[10px] font-bold text-muted-foreground uppercase tracking-wider mb-1">Sistem</div>
           <button className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground text-left w-full">
             <Settings className="h-5 w-5" />
             Pengaturan (Demo)
           </button>
         </div>
         
-        <div className="p-4 border-t">
+        <div className="p-4 border-t bg-muted/20">
           <Link href="/register">
-            <Button className="w-full shadow-lg font-semibold animate-pulse">
-              Daftar Sekarang
+            <Button className="w-full shadow-lg font-semibold animate-pulse bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90">
+              Gunakan Sistem Asli
             </Button>
           </Link>
         </div>
