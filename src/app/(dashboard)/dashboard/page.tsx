@@ -6,8 +6,26 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import Link from "next/link";
+import { useAppStore } from "@/store/useStore";
 
 export default function DashboardPage() {
+  const { transactions, customers } = useAppStore();
+
+  const totalPenjualan = transactions.reduce((sum, trx) => sum + trx.total, 0);
+  const totalTransaksi = transactions.length;
+  const totalPelanggan = customers.length;
+  const keuntungan = totalPenjualan * 0.3; // Simulasi keuntungan 30% dari penjualan
+
+  const formatRupiah = (angka: number) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+    }).format(angka);
+  };
+
+  const latestTransactions = transactions.slice(0, 5);
+
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="flex items-center justify-between space-y-2">
@@ -26,10 +44,10 @@ export default function DashboardPage() {
       {/* Stats Row */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {[
-          { title: "Total Penjualan", value: "Rp 12.450.000", change: "+20.1%", trend: "up", icon: DollarSign },
-          { title: "Transaksi", value: "342", change: "+12.5%", trend: "up", icon: ShoppingBag },
-          { title: "Pelanggan Baru", value: "12", change: "-2.4%", trend: "down", icon: Users },
-          { title: "Keuntungan", value: "Rp 4.230.000", change: "+18.2%", trend: "up", icon: Activity },
+          { title: "Total Penjualan", value: formatRupiah(totalPenjualan), change: "0%", trend: "up", icon: DollarSign },
+          { title: "Transaksi", value: totalTransaksi.toString(), change: "0%", trend: "up", icon: ShoppingBag },
+          { title: "Pelanggan Baru", value: totalPelanggan.toString(), change: "0%", trend: "up", icon: Users },
+          { title: "Keuntungan", value: formatRupiah(keuntungan), change: "0%", trend: "up", icon: Activity },
         ].map((stat, i) => (
           <Card key={i} className="border-border/50 shadow-sm">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -63,8 +81,12 @@ export default function DashboardPage() {
           <CardContent className="pl-2 flex justify-center items-center h-[300px] text-muted-foreground">
             {/* Chart placeholder - in real app, use Recharts */}
             <div className="w-full h-full flex flex-col items-center justify-center bg-muted/20 rounded-lg border border-dashed border-border">
-              <Activity className="h-8 w-8 mb-2 text-muted-foreground/50" />
-              <p className="text-sm">Area untuk Chart Penjualan (Recharts)</p>
+              {totalTransaksi > 0 ? (
+                 <Activity className="h-8 w-8 mb-2 text-primary" />
+              ) : (
+                 <Activity className="h-8 w-8 mb-2 text-muted-foreground/50" />
+              )}
+              <p className="text-sm">{totalTransaksi > 0 ? "Grafik akan muncul setelah beberapa transaksi" : "Area untuk Chart Penjualan (Recharts)"}</p>
             </div>
           </CardContent>
         </Card>
@@ -73,36 +95,35 @@ export default function DashboardPage() {
           <CardHeader>
             <CardTitle>Transaksi Terbaru</CardTitle>
             <CardDescription>
-              5 transaksi terakhir hari ini.
+              {latestTransactions.length > 0 ? `${latestTransactions.length} transaksi terakhir.` : "Belum ada transaksi hari ini."}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-6">
-              {[
-                { name: "Budi Santoso", id: "TRX-1024", amount: "Rp 150.000", status: "SUCCESS", method: "QRIS" },
-                { name: "Siti Aminah", id: "TRX-1023", amount: "Rp 45.000", status: "SUCCESS", method: "CASH" },
-                { name: "Agus Prasetyo", id: "TRX-1022", amount: "Rp 320.000", status: "SUCCESS", method: "TRANSFER" },
-                { name: "Dina Mariana", id: "TRX-1021", amount: "Rp 85.000", status: "PENDING", method: "QRIS" },
-                { name: "Wahyu Saputra", id: "TRX-1020", amount: "Rp 12.000", status: "SUCCESS", method: "CASH" },
-              ].map((trx, i) => (
+              {latestTransactions.length > 0 ? latestTransactions.map((trx, i) => (
                 <div key={i} className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
                     <div className="h-10 w-10 rounded-full bg-secondary flex items-center justify-center">
                       {trx.method === 'CASH' ? <DollarSign className="h-5 w-5 text-secondary-foreground" /> : <CreditCard className="h-5 w-5 text-secondary-foreground" />}
                     </div>
                     <div>
-                      <p className="text-sm font-medium leading-none">{trx.name}</p>
-                      <p className="text-sm text-muted-foreground mt-1">{trx.id}</p>
+                      <p className="text-sm font-medium leading-none">Transaksi #{trx.id.substring(0, 8)}</p>
+                      <p className="text-sm text-muted-foreground mt-1">{new Date(trx.date).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}</p>
                     </div>
                   </div>
                   <div className="flex flex-col items-end gap-1">
-                    <div className="font-medium">{trx.amount}</div>
-                    <Badge variant={trx.status === 'SUCCESS' ? 'default' : 'secondary'} className="text-[10px]">
-                      {trx.status}
+                    <div className="font-medium">{formatRupiah(trx.total)}</div>
+                    <Badge variant="default" className="text-[10px]">
+                      SUCCESS
                     </Badge>
                   </div>
                 </div>
-              ))}
+              )) : (
+                <div className="flex flex-col items-center justify-center py-8 text-center text-muted-foreground">
+                  <ShoppingBag className="h-8 w-8 mb-3 opacity-20" />
+                  <p className="text-sm">Belum ada transaksi</p>
+                </div>
+              )}
             </div>
           </CardContent>
         </Card>

@@ -20,8 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${jakarta.variable} font-sans h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-background text-foreground overflow-x-hidden">
+    <html lang="id" className={`${jakarta.variable} font-sans h-full antialiased`} suppressHydrationWarning>
+      <body className="min-h-full flex flex-col bg-background text-foreground overflow-x-hidden" suppressHydrationWarning>
         {children}
         <Toaster />
       </body>

@@ -173,7 +173,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   );
 
   return (
-    <div className="grid min-h-screen w-full max-w-[100vw] overflow-x-hidden md:grid-cols-[260px_1fr]">
+    <div className="grid h-[100dvh] w-full max-w-[100vw] overflow-hidden md:grid-cols-[260px_1fr]">
       {/* Desktop Sidebar */}
       <div className="hidden border-r bg-card/50 md:block backdrop-blur-xl">
         <div className="flex h-full max-h-screen flex-col gap-2">
