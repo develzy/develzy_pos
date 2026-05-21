@@ -5,11 +5,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { buttonVariants, Button } from "@/components/ui/button";
 import { Store, ChevronDown, Menu, Home, Star, CreditCard, ShoppingBag, Wrench, Coffee, Shirt, Utensils, Scissors, ChevronRight } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export function SiteHeader() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -78,7 +79,7 @@ export function SiteHeader() {
 
           {/* Mobile Menu */}
           <div className="md:hidden">
-            <Sheet>
+            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger className={`${buttonVariants({ variant: "ghost", size: "icon" })} md:hidden`}>
                 <Menu className="h-6 w-6" />
               </SheetTrigger>
@@ -94,76 +95,64 @@ export function SiteHeader() {
                 <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-8 pb-24">
                   {/* Main Links */}
                   <div className="flex flex-col gap-1">
-                    <SheetClose asChild><Link href="/" className="flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-muted/60 transition-all text-foreground font-semibold"><Home className="w-5 h-5 text-muted-foreground" /> Beranda</Link></SheetClose>
-                    <SheetClose asChild><Link href="/#fitur" className="flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-muted/60 transition-all text-foreground font-semibold"><Star className="w-5 h-5 text-muted-foreground" /> Fitur Unggulan</Link></SheetClose>
-                    <SheetClose asChild><Link href="/#harga" className="flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-muted/60 transition-all text-foreground font-semibold"><CreditCard className="w-5 h-5 text-muted-foreground" /> Harga Paket</Link></SheetClose>
+                    <Link onClick={() => setIsMobileMenuOpen(false)} href="/" className="flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-muted/60 transition-all text-foreground font-semibold"><Home className="w-5 h-5 text-muted-foreground" /> Beranda</Link>
+                    <Link onClick={() => setIsMobileMenuOpen(false)} href="/#fitur" className="flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-muted/60 transition-all text-foreground font-semibold"><Star className="w-5 h-5 text-muted-foreground" /> Fitur Unggulan</Link>
+                    <Link onClick={() => setIsMobileMenuOpen(false)} href="/#harga" className="flex items-center gap-4 px-4 py-3.5 rounded-2xl hover:bg-muted/60 transition-all text-foreground font-semibold"><CreditCard className="w-5 h-5 text-muted-foreground" /> Harga Paket</Link>
                   </div>
                   
                   {/* Solusi Bisnis */}
                   <div>
                     <h4 className="text-[11px] font-extrabold text-primary tracking-widest uppercase mb-4 px-4">Solusi Bisnis</h4>
                     <div className="grid grid-cols-1 gap-1.5">
-                      <SheetClose asChild>
-                        <Link href="/solusi/retail" className="flex items-center justify-between px-4 py-3 rounded-2xl hover:bg-primary/5 transition-all group">
-                          <div className="flex items-center gap-4">
-                            <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform"><ShoppingBag className="w-5 h-5" /></div>
-                            <div className="font-semibold text-foreground">Toko Retail</div>
-                          </div>
-                          <ChevronRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all" />
-                        </Link>
-                      </SheetClose>
-                      <SheetClose asChild>
-                        <Link href="/solusi/bengkel" className="flex items-center justify-between px-4 py-3 rounded-2xl hover:bg-primary/5 transition-all group">
-                          <div className="flex items-center gap-4">
-                            <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform"><Wrench className="w-5 h-5" /></div>
-                            <div className="font-semibold text-foreground">Bengkel Motor / Mobil</div>
-                          </div>
-                          <ChevronRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all" />
-                        </Link>
-                      </SheetClose>
-                      <SheetClose asChild>
-                        <Link href="/solusi/coffee-shop" className="flex items-center justify-between px-4 py-3 rounded-2xl hover:bg-primary/5 transition-all group">
-                          <div className="flex items-center gap-4">
-                            <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform"><Coffee className="w-5 h-5" /></div>
-                            <div className="font-semibold text-foreground">Coffee Shop / Cafe</div>
-                          </div>
-                          <ChevronRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all" />
-                        </Link>
-                      </SheetClose>
-                      <SheetClose asChild>
-                        <Link href="/solusi/laundry" className="flex items-center justify-between px-4 py-3 rounded-2xl hover:bg-primary/5 transition-all group">
-                          <div className="flex items-center gap-4">
-                            <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform"><Shirt className="w-5 h-5" /></div>
-                            <div className="font-semibold text-foreground">Laundry</div>
-                          </div>
-                          <ChevronRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all" />
-                        </Link>
-                      </SheetClose>
-                      <SheetClose asChild>
-                        <Link href="/solusi/restoran" className="flex items-center justify-between px-4 py-3 rounded-2xl hover:bg-primary/5 transition-all group">
-                          <div className="flex items-center gap-4">
-                            <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform"><Utensils className="w-5 h-5" /></div>
-                            <div className="font-semibold text-foreground">Restoran</div>
-                          </div>
-                          <ChevronRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all" />
-                        </Link>
-                      </SheetClose>
-                      <SheetClose asChild>
-                        <Link href="/solusi/barbershop" className="flex items-center justify-between px-4 py-3 rounded-2xl hover:bg-primary/5 transition-all group">
-                          <div className="flex items-center gap-4">
-                            <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform"><Scissors className="w-5 h-5" /></div>
-                            <div className="font-semibold text-foreground">Barbershop / Salon</div>
-                          </div>
-                          <ChevronRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all" />
-                        </Link>
-                      </SheetClose>
+                      <Link onClick={() => setIsMobileMenuOpen(false)} href="/solusi/retail" className="flex items-center justify-between px-4 py-3 rounded-2xl hover:bg-primary/5 transition-all group">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform"><ShoppingBag className="w-5 h-5" /></div>
+                          <div className="font-semibold text-foreground">Toko Retail</div>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                      </Link>
+                      <Link onClick={() => setIsMobileMenuOpen(false)} href="/solusi/bengkel" className="flex items-center justify-between px-4 py-3 rounded-2xl hover:bg-primary/5 transition-all group">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform"><Wrench className="w-5 h-5" /></div>
+                          <div className="font-semibold text-foreground">Bengkel Motor / Mobil</div>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                      </Link>
+                      <Link onClick={() => setIsMobileMenuOpen(false)} href="/solusi/coffee-shop" className="flex items-center justify-between px-4 py-3 rounded-2xl hover:bg-primary/5 transition-all group">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform"><Coffee className="w-5 h-5" /></div>
+                          <div className="font-semibold text-foreground">Coffee Shop / Cafe</div>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                      </Link>
+                      <Link onClick={() => setIsMobileMenuOpen(false)} href="/solusi/laundry" className="flex items-center justify-between px-4 py-3 rounded-2xl hover:bg-primary/5 transition-all group">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform"><Shirt className="w-5 h-5" /></div>
+                          <div className="font-semibold text-foreground">Laundry</div>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                      </Link>
+                      <Link onClick={() => setIsMobileMenuOpen(false)} href="/solusi/restoran" className="flex items-center justify-between px-4 py-3 rounded-2xl hover:bg-primary/5 transition-all group">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform"><Utensils className="w-5 h-5" /></div>
+                          <div className="font-semibold text-foreground">Restoran</div>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                      </Link>
+                      <Link onClick={() => setIsMobileMenuOpen(false)} href="/solusi/barbershop" className="flex items-center justify-between px-4 py-3 rounded-2xl hover:bg-primary/5 transition-all group">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:scale-110 transition-transform"><Scissors className="w-5 h-5" /></div>
+                          <div className="font-semibold text-foreground">Barbershop / Salon</div>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                      </Link>
                     </div>
                   </div>
                 </div>
                 
                 <div className="p-6 bg-background border-t shadow-[0_-10px_40px_rgba(0,0,0,0.05)] flex flex-col gap-3 mt-auto">
-                  <SheetClose asChild><Link href="/login" className={buttonVariants({ variant: "outline", className: "w-full h-14 rounded-2xl text-base font-semibold border-primary/20 hover:bg-primary/5" })}>Masuk ke Akun</Link></SheetClose>
-                  <SheetClose asChild><Link href="/register" className={buttonVariants({ className: "w-full h-14 rounded-2xl text-base font-semibold shadow-lg shadow-primary/25" })}>Coba Gratis Sekarang</Link></SheetClose>
+                  <Link onClick={() => setIsMobileMenuOpen(false)} href="/login" className={buttonVariants({ variant: "outline", className: "w-full h-14 rounded-2xl text-base font-semibold border-primary/20 hover:bg-primary/5" })}>Masuk ke Akun</Link>
+                  <Link onClick={() => setIsMobileMenuOpen(false)} href="/register" className={buttonVariants({ className: "w-full h-14 rounded-2xl text-base font-semibold shadow-lg shadow-primary/25" })}>Coba Gratis Sekarang</Link>
                 </div>
               </SheetContent>
             </Sheet>
