@@ -1,7 +1,6 @@
 import { Button, buttonVariants } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2, ChevronRight, Store, BarChart3, Cloud, Shield, LayoutDashboard, ShoppingCart, Package, Users, Search, HelpCircle } from "lucide-react";
 import Link from "next/link";
-import { DemoModal } from "@/components/DemoModal";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { DashboardMockup } from "@/components/DashboardMockup";
@@ -33,7 +32,9 @@ export default function Home() {
                 <Link href="/register" className={buttonVariants({ size: "lg", className: "w-full sm:w-auto rounded-full h-12 px-8 text-base shadow-lg shadow-primary/25" })}>
                   Mulai Sekarang <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
-                <DemoModal />
+                <Link href="/demo" className={buttonVariants({ variant: "outline", size: "lg", className: "w-full sm:w-auto rounded-full h-12 px-8 text-base bg-background/50 backdrop-blur-sm" })}>
+                  Lihat Demo
+                </Link>
               </div>
               <div className="pt-8 flex items-center justify-center gap-6 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-primary" /> Tanpa Kartu Kredit</div>
