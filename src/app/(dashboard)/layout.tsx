@@ -222,39 +222,72 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           </div>
           
           <div className="flex items-center gap-2 shrink-0">
-            <Button variant="outline" size="icon" className="rounded-full relative shrink-0 h-9 w-9">
-              <Bell className="h-4 w-4" />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-destructive rounded-full" />
-            </Button>
+            {/* Notification Bell */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="icon" className="rounded-full relative shrink-0 h-9 w-9">
+                  <Bell className="h-4 w-4" />
+                  <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-destructive rounded-full" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-80">
+                <DropdownMenuLabel>Notifikasi Baru</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <div className="flex flex-col max-h-[300px] overflow-y-auto">
+                  <div className="p-3 hover:bg-muted/50 cursor-pointer border-b">
+                    <p className="text-sm font-medium">Pembaruan Sistem Berhasil 🚀</p>
+                    <p className="text-xs text-muted-foreground mt-1">Versi terbaru DEVELZY POS 2.0 telah aktif dengan optimasi kecepatan.</p>
+                    <p className="text-[10px] text-muted-foreground mt-2">Baru saja</p>
+                  </div>
+                  <div className="p-3 hover:bg-muted/50 cursor-pointer border-b">
+                    <p className="text-sm font-medium">Laporan Harian Tersedia 📊</p>
+                    <p className="text-xs text-muted-foreground mt-1">Ringkasan penjualan dari seluruh cabang kemarin sudah bisa Anda lihat.</p>
+                    <p className="text-[10px] text-muted-foreground mt-2">2 jam yang lalu</p>
+                  </div>
+                </div>
+                <DropdownMenuSeparator />
+                <div className="p-2">
+                  <Button variant="outline" className="w-full text-xs h-8" onClick={(e) => { e.preventDefault(); toast.success("Notifikasi telah ditandai dibaca"); }}>Tandai Semua Dibaca</Button>
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
+            {/* User Avatar Menu */}
             <DropdownMenu>
               <DropdownMenuTrigger className={buttonVariants({ variant: "ghost", size: "icon", className: "rounded-full shrink-0 h-9 w-9" })}>
-                <Avatar className="h-9 w-9 border border-border/50">
-                  <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                  <AvatarFallback>AD</AvatarFallback>
+                <Avatar className="h-9 w-9 border border-border/50 hover:opacity-80 transition-opacity">
+                  <AvatarImage src="https://github.com/shadcn.png" alt="User Avatar" />
+                  <AvatarFallback>{user.name.substring(0, 2).toUpperCase()}</AvatarFallback>
                 </Avatar>
                 <span className="sr-only">Toggle user menu</span>
               </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuGroup>
-                <DropdownMenuLabel className="font-normal">
-                  <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none">{user.name}</p>
-                    <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
-                  </div>
-                </DropdownMenuLabel>
-              </DropdownMenuGroup>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Profil ({user.role})</DropdownMenuItem>
-              <DropdownMenuItem>Billing ({user.plan})</DropdownMenuItem>
-              <DropdownMenuItem>Pengaturan Toko</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-destructive" onClick={logout}>
-                <LogOut className="mr-2 h-4 w-4" />
-                Keluar
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+              <DropdownMenuContent align="end" className="w-64">
+                <DropdownMenuGroup>
+                  <DropdownMenuLabel className="font-normal pb-2">
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-bold leading-none">{user.name}</p>
+                      <p className="text-xs font-medium leading-none text-primary mt-1">{user.role}</p>
+                      <p className="text-[10px] leading-none text-muted-foreground mt-2">{user.email}</p>
+                    </div>
+                  </DropdownMenuLabel>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link href="/settings" className="cursor-pointer w-full flex items-center">Profil Saya</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/settings" className="cursor-pointer w-full flex items-center">Tagihan & Paket ({user.plan})</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/settings" className="cursor-pointer w-full flex items-center">Pengaturan Toko & Outlet</Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="text-destructive cursor-pointer font-semibold" onClick={logout}>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Keluar dari Akun
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </header>
 
