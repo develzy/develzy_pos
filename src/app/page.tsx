@@ -8,7 +8,7 @@ import { DashboardMockup } from "@/components/DashboardMockup";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden">
       {/* Header */}
       <SiteHeader />
 
@@ -22,8 +22,8 @@ export default function Home() {
                 <span className="flex h-2 w-2 rounded-full bg-primary mr-2"></span>
                 Aplikasi Kasir Berbasis Cloud #1 di Indonesia
               </div>
-              <h1 className="text-5xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl">
-                Aplikasi <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Permanen</span>,<br />
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight">
+                Aplikasi <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Permanen</span>,<br className="hidden sm:block" />
                 Usaha Makin <span className="text-primary">Paten.</span>
               </h1>
               <p className="mx-auto max-w-2xl text-lg text-muted-foreground leading-relaxed">

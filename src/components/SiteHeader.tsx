@@ -3,8 +3,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { buttonVariants } from "@/components/ui/button";
-import { Store, ChevronDown } from "lucide-react";
+import { buttonVariants, Button } from "@/components/ui/button";
+import { Store, ChevronDown, Menu } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -67,13 +68,44 @@ export function SiteHeader() {
 
           <Link href="/harga" className={`text-sm font-medium transition-colors hover:text-primary ${pathname.startsWith("/harga") ? "text-primary font-bold" : "text-muted-foreground"}`}>Harga</Link>
         </nav>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
           <Link href="/login" className="text-sm font-medium text-muted-foreground hover:text-foreground hidden sm:block">
             Masuk
           </Link>
-          <Link href="/register" className={buttonVariants({ className: "rounded-full shadow-md shadow-primary/20" })}>
+          <Link href="/register" className={buttonVariants({ className: "rounded-full shadow-md shadow-primary/20 hidden sm:flex" })}>
             Coba Gratis
           </Link>
+
+          {/* Mobile Menu */}
+          <div className="md:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="md:hidden">
+                  <Menu className="h-6 w-6" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[300px] sm:w-[400px] flex flex-col gap-6 pt-12 overflow-y-auto">
+                <Link href="/" className="text-lg font-bold hover:text-primary">Beranda</Link>
+                <Link href="/#fitur" className="text-lg font-bold hover:text-primary">Fitur</Link>
+                <Link href="/#harga" className="text-lg font-bold hover:text-primary">Harga</Link>
+                
+                <div className="flex flex-col gap-3 pt-4 border-t">
+                  <span className="text-sm text-muted-foreground font-semibold uppercase tracking-wider">Solusi Bisnis</span>
+                  <Link href="/solusi/retail" className="text-base font-medium hover:text-primary">Toko Retail</Link>
+                  <Link href="/solusi/bengkel" className="text-base font-medium hover:text-primary">Bengkel</Link>
+                  <Link href="/solusi/coffee-shop" className="text-base font-medium hover:text-primary">Coffee Shop</Link>
+                  <Link href="/solusi/laundry" className="text-base font-medium hover:text-primary">Laundry</Link>
+                  <Link href="/solusi/restoran" className="text-base font-medium hover:text-primary">Restoran</Link>
+                  <Link href="/solusi/barbershop" className="text-base font-medium hover:text-primary">Barbershop</Link>
+                </div>
+                
+                <div className="flex flex-col gap-3 pt-6 border-t mt-auto mb-4">
+                  <Link href="/login" className={buttonVariants({ variant: "outline", className: "w-full h-12" })}>Masuk ke Akun</Link>
+                  <Link href="/register" className={buttonVariants({ className: "w-full h-12" })}>Coba Gratis Sekarang</Link>
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </div>
     </header>
