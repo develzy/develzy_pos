@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DEVELZY POS
 
-## Getting Started
+Aplikasi Kasir Modern Premium Berbasis Cloud, dibangun dengan arsitektur modern yang scalable dan siap untuk production.
 
-First, run the development server:
+## 🚀 Fitur Unggulan
+- **Dashboard Premium**: Analitik realtime dengan UI/UX modern (SaaS-like).
+- **POS Modern**: Transaksi kasir cepat, mudah, dan responsive.
+- **Manajemen Produk & Stok**: Pantau dan kelola inventaris dengan mudah.
+- **Multi Pembayaran**: Dukungan QRIS, Cash, Debit, dan Transfer.
+- **RBAC (Role-Based Access Control)**: Super Admin, Admin, dan Kasir.
+- **Cloud-based Sync**: Data aman di cloud, multi-cabang support.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🛠️ Tech Stack
+- **Frontend**: Next.js 15 (App Router), TypeScript, TailwindCSS v4, Shadcn UI, Zustand
+- **Backend API**: Hono.js (Edge Runtime)
+- **Database**: Cloudflare D1 (SQLite)
+- **Deployment**: Cloudflare Pages & Cloudflare Workers
+
+## 📂 Struktur Project
+```
+├── src/
+│   ├── app/                # Next.js App Router (Frontend + API Routes)
+│   │   ├── (dashboard)/    # Layout Dashboard & POS
+│   │   ├── api/            # Hono.js API Router (Edge)
+│   │   └── page.tsx        # Landing Page Modern
+│   ├── components/         # Reusable UI Components (Shadcn UI)
+│   ├── database/           # D1 Schema & Migrations
+│   ├── features/           # Feature-based logic (Products, Pos, dll)
+│   ├── hooks/              # Custom React Hooks
+│   ├── lib/                # Utility libraries (cn, dll)
+│   ├── middleware/         # Auth & Role Protection
+│   ├── services/           # External API & Service Integrations
+│   ├── store/              # Zustand Global State
+│   └── types/              # TypeScript Definitions
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ⚙️ Cara Menjalankan Lokal
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Install Dependencies**
+   ```bash
+   npm install
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. **Setup Database (Cloudflare D1 Local)**
+   Instal Wrangler CLI:
+   ```bash
+   npm install -g wrangler
+   ```
+   *Catatan: Pastikan untuk mensetup D1 binding di `wrangler.toml` jika akan di deploy.*
 
-## Learn More
+3. **Jalankan Development Server**
+   ```bash
+   npm run dev
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+4. Buka `http://localhost:3000` di browser Anda.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🌐 Deployment (Cloudflare)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Project ini siap di deploy ke Cloudflare Pages dengan Hono API berjalan di Edge Runtime.
 
-## Deploy on Vercel
+1. **Deploy Frontend (Next.js)**:
+   Gunakan `@cloudflare/next-on-pages` untuk mendeploy aplikasi Next.js App Router ke Cloudflare Pages.
+   
+2. **Deploy Database (D1)**:
+   Jalankan file `src/database/schema.sql` menggunakan Wrangler D1 execute.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npx wrangler d1 execute develzy-pos-db --local --file=./src/database/schema.sql
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🔒 Keamanan
+- Middleware terproteksi untuk semua route `/dashboard` dan `/pos`.
+- API endpoints divalidasi menggunakan otentikasi JWT dan Role-based permission.
+
+---
+**DEVELZY POS** — *Aplikasi Permanen, Usaha Makin Paten.*
