@@ -93,18 +93,18 @@ export default function SettingsPage() {
       </div>
 
       <Tabs defaultValue="store" className="space-y-6">
-        <TabsList className="bg-muted/50 p-1 flex flex-wrap md:inline-flex h-auto">
-          <TabsTrigger value="store" className="rounded-md data-[state=active]:bg-background data-[state=active]:shadow-sm">
+        <TabsList className="flex w-full overflow-x-auto flex-nowrap justify-start p-1 bg-muted/50 rounded-xl h-12 md:h-11 md:inline-flex md:w-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] shadow-inner border border-muted">
+          <TabsTrigger value="store" className="shrink-0 flex-1 md:flex-none whitespace-nowrap rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-sm px-4 py-2 transition-all">
             <Store className="w-4 h-4 mr-2" /> Profil Toko
           </TabsTrigger>
-          <TabsTrigger value="account" className="rounded-md data-[state=active]:bg-background data-[state=active]:shadow-sm">
-            <User className="w-4 h-4 mr-2" /> Akun
+          <TabsTrigger value="account" className="shrink-0 flex-1 md:flex-none whitespace-nowrap rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-sm px-4 py-2 transition-all">
+            <User className="w-4 h-4 mr-2" /> Akun Keamanan
           </TabsTrigger>
-          <TabsTrigger value="billing" className="rounded-md data-[state=active]:bg-background data-[state=active]:shadow-sm">
+          <TabsTrigger value="billing" className="shrink-0 flex-1 md:flex-none whitespace-nowrap rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-sm px-4 py-2 transition-all">
             <CreditCard className="w-4 h-4 mr-2" /> Paket & Tagihan
           </TabsTrigger>
-          <TabsTrigger value="receipt" className="rounded-md data-[state=active]:bg-background data-[state=active]:shadow-sm">
-            <Receipt className="w-4 h-4 mr-2" /> Struk
+          <TabsTrigger value="receipt" className="shrink-0 flex-1 md:flex-none whitespace-nowrap rounded-lg data-[state=active]:bg-background data-[state=active]:shadow-sm px-4 py-2 transition-all">
+            <Receipt className="w-4 h-4 mr-2" /> Pengaturan Struk
           </TabsTrigger>
         </TabsList>
 
