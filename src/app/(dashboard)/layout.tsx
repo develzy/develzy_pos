@@ -232,20 +232,22 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 <DropdownMenuLabel>Notifikasi Baru</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <div className="flex flex-col max-h-[300px] overflow-y-auto">
-                  <div className="p-3 hover:bg-muted/50 cursor-pointer border-b">
+                  <DropdownMenuItem className="p-3 cursor-pointer border-b flex flex-col items-start gap-1 h-auto" onClick={(e) => e.preventDefault()}>
                     <p className="text-sm font-medium">Pembaruan Sistem Berhasil 🚀</p>
-                    <p className="text-xs text-muted-foreground mt-1">Versi terbaru DEVELZY POS 2.0 telah aktif dengan optimasi kecepatan.</p>
-                    <p className="text-[10px] text-muted-foreground mt-2">Baru saja</p>
-                  </div>
-                  <div className="p-3 hover:bg-muted/50 cursor-pointer border-b">
+                    <p className="text-xs text-muted-foreground whitespace-normal text-left">Versi terbaru DEVELZY POS 2.0 telah aktif dengan optimasi kecepatan.</p>
+                    <p className="text-[10px] text-muted-foreground">Baru saja</p>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="p-3 cursor-pointer flex flex-col items-start gap-1 h-auto" onClick={(e) => e.preventDefault()}>
                     <p className="text-sm font-medium">Laporan Harian Tersedia 📊</p>
-                    <p className="text-xs text-muted-foreground mt-1">Ringkasan penjualan dari seluruh cabang kemarin sudah bisa Anda lihat.</p>
-                    <p className="text-[10px] text-muted-foreground mt-2">2 jam yang lalu</p>
-                  </div>
+                    <p className="text-xs text-muted-foreground whitespace-normal text-left">Ringkasan penjualan dari seluruh cabang kemarin sudah bisa Anda lihat.</p>
+                    <p className="text-[10px] text-muted-foreground">2 jam yang lalu</p>
+                  </DropdownMenuItem>
                 </div>
                 <DropdownMenuSeparator />
                 <div className="p-2">
-                  <Button variant="outline" className="w-full text-xs h-8" onClick={(e) => { e.preventDefault(); toast.success("Notifikasi telah ditandai dibaca"); }}>Tandai Semua Dibaca</Button>
+                  <DropdownMenuItem className="w-full justify-center text-xs h-8 bg-primary/10 text-primary font-bold cursor-pointer" onClick={(e) => { e.preventDefault(); toast.success("Notifikasi telah ditandai dibaca"); }}>
+                    Tandai Semua Dibaca
+                  </DropdownMenuItem>
                 </div>
               </DropdownMenuContent>
             </DropdownMenu>
