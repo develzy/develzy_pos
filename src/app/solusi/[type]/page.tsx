@@ -5,7 +5,16 @@ import { ArrowRight, CheckCircle2, Coffee, ShoppingBag, Wrench, Shirt, Utensils,
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-export const runtime = 'edge';
+export function generateStaticParams() {
+  return [
+    { type: 'coffee-shop' },
+    { type: 'retail' },
+    { type: 'bengkel' },
+    { type: 'laundry' },
+    { type: 'restoran' },
+    { type: 'barbershop' },
+  ];
+}
 
 const solusiData: Record<string, any> = {
   "coffee-shop": { 
