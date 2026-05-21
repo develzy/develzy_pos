@@ -29,11 +29,15 @@ export default function POSPage() {
   const [discountType, setDiscountType] = useState<"PERCENT" | "FIXED">("FIXED");
   const [lastTransaction, setLastTransaction] = useState<any>(null);
   
-  const { products, services, fetchServices, cart, addToCart, updateCartQty, addTransaction, user } = useAppStore();
+  const { products, services, fetchProducts, fetchServices, cart, addToCart, updateCartQty, addTransaction, user } = useAppStore();
+
+  const isCompactMode = user?.business_type === 'Retail';
+  const defaultFallbackLogo = user?.store_logo || "https://images.unsplash.com/photo-1542838132-92c53300491e?w=100&q=80";
 
   useEffect(() => {
+    fetchProducts();
     fetchServices();
-  }, [fetchServices]);
+  }, [fetchProducts, fetchServices]);
 
   const updateQty = (id: string, delta: number) => {
     updateCartQty(id, delta);
@@ -175,52 +179,103 @@ export default function POSPage() {
 
           <ScrollArea className="flex-1 h-full pr-4 mt-4">
             <TabsContent value="Produk" className="mt-0 h-full">
-              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 pb-4">
-                {filteredProducts.map(product => (
-                  <Card 
-                    key={product.id} 
-                    className="overflow-hidden cursor-pointer hover:border-primary/50 transition-all hover:shadow-md group"
-                    onClick={() => addToCart(product)}
-                  >
-                    <div className="h-32 bg-muted relative overflow-hidden">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                      <div className="absolute top-2 right-2 bg-background/80 backdrop-blur-md px-2 py-1 rounded-md text-xs font-semibold shadow-sm">
-                        {product.category}
+              <div className={`grid gap-4 pb-4 ${isCompactMode ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-2 md:grid-cols-3 xl:grid-cols-4'}`}>
+                {filteredProducts.map(product => {
+                  const productImage = product.image || defaultFallbackLogo;
+                  
+                  if (isCompactMode) {
+                    return (
+                      <Card 
+                        key={product.id} 
+                        className="cursor-pointer hover:border-primary/50 transition-all hover:shadow-md flex items-center p-3 gap-3 bg-card"
+                        onClick={() => addToCart(product)}
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={productImage} alt={product.name} className="w-14 h-14 object-cover rounded-lg bg-muted border shadow-sm" />
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-sm truncate">{product.name}</h3>
+                          <div className="flex items-center justify-between mt-1">
+                            <p className="text-primary font-bold text-sm">Rp {product.price.toLocaleString('id-ID')}</p>
+                            <Badge variant="outline" className="text-[9px] px-1.5 h-4">{product.category}</Badge>
+                          </div>
+                        </div>
+                      </Card>
+                    );
+                  }
+
+                  return (
+                    <Card 
+                      key={product.id} 
+                      className="overflow-hidden cursor-pointer hover:border-primary/50 transition-all hover:shadow-md group flex flex-col justify-between"
+                      onClick={() => addToCart(product)}
+                    >
+                      <div className="h-32 bg-muted relative overflow-hidden">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={productImage} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                        <div className="absolute top-2 right-2 bg-background/80 backdrop-blur-md px-2 py-1 rounded-md text-[10px] font-semibold shadow-sm">
+                          {product.category}
+                        </div>
                       </div>
-                    </div>
-                    <CardContent className="p-4">
-                      <h3 className="font-semibold text-sm line-clamp-2 leading-tight">{product.name}</h3>
-                      <p className="text-primary font-bold mt-2">Rp {product.price.toLocaleString('id-ID')}</p>
-                    </CardContent>
-                  </Card>
-                ))}
+                      <CardContent className="p-4 pt-3">
+                        <h3 className="font-semibold text-sm line-clamp-2 leading-tight">{product.name}</h3>
+                        <p className="text-primary font-bold mt-2 text-lg">Rp {product.price.toLocaleString('id-ID')}</p>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
               </div>
             </TabsContent>
 
             <TabsContent value="Jasa" className="mt-0 h-full">
-              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 pb-4">
-                {filteredServices.map(service => (
-                  <Card 
-                    key={service.id} 
-                    className="overflow-hidden cursor-pointer hover:border-primary/50 transition-all hover:shadow-md group flex flex-col justify-between"
-                    onClick={() => addToCart(service, "SERVICE")}
-                  >
-                    <CardHeader className="bg-primary/5 pb-2 border-b">
-                      <div className="flex justify-between items-start">
-                        <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                          <Wrench className="h-5 w-5" />
+              <div className={`grid gap-4 pb-4 ${isCompactMode ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' : 'grid-cols-2 md:grid-cols-3 xl:grid-cols-4'}`}>
+                {filteredServices.map(service => {
+                  // Services currently don't have an image field in the type, but this prepares for it.
+                  // If no image, it falls back to the defaultFallbackLogo (store logo).
+                  const serviceImage = (service as any).image || defaultFallbackLogo;
+                  
+                  if (isCompactMode) {
+                    return (
+                      <Card 
+                        key={service.id} 
+                        className="cursor-pointer hover:border-primary/50 transition-all hover:shadow-md flex items-center p-3 gap-3 bg-card"
+                        onClick={() => addToCart(service, "SERVICE")}
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={serviceImage} alt={service.name} className="w-14 h-14 object-cover rounded-lg bg-muted border shadow-sm" />
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-sm truncate">{service.name}</h3>
+                          <div className="flex items-center justify-between mt-1">
+                            <p className="text-primary font-bold text-sm">Rp {service.price.toLocaleString('id-ID')}</p>
+                            <Badge variant="outline" className="text-[9px] px-1.5 h-4">{service.category}</Badge>
+                          </div>
                         </div>
-                        <Badge variant="outline" className="text-[10px]">{service.category}</Badge>
+                      </Card>
+                    );
+                  }
+
+                  return (
+                    <Card 
+                      key={service.id} 
+                      className="overflow-hidden cursor-pointer hover:border-primary/50 transition-all hover:shadow-md group flex flex-col justify-between"
+                      onClick={() => addToCart(service, "SERVICE")}
+                    >
+                      <div className="h-32 bg-muted relative overflow-hidden">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={serviceImage} alt={service.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                        <div className="absolute top-2 right-2 bg-background/80 backdrop-blur-md px-2 py-1 rounded-md text-[10px] font-semibold shadow-sm">
+                          {service.category}
+                        </div>
+                        <div className="absolute top-2 left-2 h-8 w-8 rounded-full bg-primary/90 backdrop-blur-md flex items-center justify-center text-primary-foreground shadow-sm">
+                          <Wrench className="h-4 w-4" />
+                        </div>
                       </div>
-                      <CardTitle className="text-base mt-3 line-clamp-2 leading-tight">{service.name}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-4 pt-3">
-                      <p className="text-primary font-bold text-lg">Rp {service.price.toLocaleString('id-ID')}</p>
-                      <p className="text-xs text-muted-foreground mt-1 line-clamp-1">{service.description}</p>
-                    </CardContent>
-                  </Card>
-                ))}
+                      <CardContent className="p-4 pt-3">
+                        <h3 className="font-semibold text-sm line-clamp-2 leading-tight">{service.name}</h3>
+                        <p className="text-primary font-bold mt-2 text-lg">Rp {service.price.toLocaleString('id-ID')}</p>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
               </div>
             </TabsContent>
           </ScrollArea>

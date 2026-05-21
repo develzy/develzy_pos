@@ -2,8 +2,9 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Search, MoreHorizontal, Pencil, Trash2, Award, Download } from "lucide-react";
+import { Plus, Search, MoreHorizontal, Pencil, Trash2, Award, Download, Filter } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { 
   Table, 
@@ -19,6 +20,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuGroup,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -122,9 +124,14 @@ export default function CustomersPage() {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-            <Button variant="outline" className="rounded-full w-full md:w-auto">
-              <Download className="mr-2 h-4 w-4" /> Export Data
-            </Button>
+            <div className="flex items-center gap-2 w-full md:w-auto">
+              <Button variant="outline" className="rounded-full w-full md:w-auto" onClick={() => toast.info("Fitur Filter Lanjutan akan segera hadir!")}>
+                <Filter className="mr-2 h-4 w-4" /> Filter
+              </Button>
+              <Button variant="outline" className="rounded-full w-full md:w-auto" onClick={() => toast.info("Fitur Export Data akan segera hadir!")}>
+                <Download className="mr-2 h-4 w-4" /> Export Data
+              </Button>
+            </div>
           </div>
         </CardHeader>
         <CardContent>
@@ -185,9 +192,11 @@ export default function CustomersPage() {
                             <span className="sr-only">Buka menu</span>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end" className="w-[160px]">
-                            <DropdownMenuLabel>Aksi</DropdownMenuLabel>
+                            <DropdownMenuGroup>
+                              <DropdownMenuLabel>Aksi</DropdownMenuLabel>
+                            </DropdownMenuGroup>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => toast.info("Fitur Edit akan segera hadir!")}>
                               <Pencil className="mr-2 h-4 w-4" /> Edit Profil
                             </DropdownMenuItem>
                             <DropdownMenuItem>
@@ -208,11 +217,11 @@ export default function CustomersPage() {
           </div>
           <div className="flex items-center justify-between mt-4 text-sm text-muted-foreground">
             <div>
-              Total <strong>{filteredCustomers.length}</strong> pelanggan terdaftar
+              Menampilkan <strong>{filteredCustomers.length}</strong> pelanggan
             </div>
             <div className="flex gap-2">
-              <Button variant="outline" size="sm" disabled>Sebelumnya</Button>
-              <Button variant="outline" size="sm" disabled>Selanjutnya</Button>
+              <Button variant="outline" size="sm" onClick={() => toast.info("Sudah di halaman pertama")}>Sebelumnya</Button>
+              <Button variant="outline" size="sm" onClick={() => toast.info("Tidak ada halaman selanjutnya")}>Selanjutnya</Button>
             </div>
           </div>
         </CardContent>

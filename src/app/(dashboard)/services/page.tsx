@@ -18,6 +18,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuGroup,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -192,7 +193,7 @@ export default function ServicesPage() {
               />
             </div>
             <div className="flex items-center gap-2 w-full md:w-auto">
-              <Button variant="outline" className="rounded-full w-full md:w-auto">
+              <Button variant="outline" className="rounded-full w-full md:w-auto" onClick={() => toast.info("Fitur Filter Lanjutan akan segera hadir!")}>
                 <Filter className="mr-2 h-4 w-4" /> Filter
               </Button>
             </div>
@@ -247,9 +248,11 @@ export default function ServicesPage() {
                             <span className="sr-only">Buka menu</span>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end" className="w-[160px]">
-                            <DropdownMenuLabel>Aksi</DropdownMenuLabel>
+                            <DropdownMenuGroup>
+                              <DropdownMenuLabel>Aksi</DropdownMenuLabel>
+                            </DropdownMenuGroup>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => toast.info("Fitur Edit akan segera hadir!")}>
                               <Pencil className="mr-2 h-4 w-4" /> Edit
                             </DropdownMenuItem>
                             <DropdownMenuItem onClick={() => handleDeleteService(service.id)} className="text-destructive">

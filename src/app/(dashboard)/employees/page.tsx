@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Plus, Search, MoreHorizontal, Pencil, Trash2, Filter, UserCog } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
+
 import { Input } from "@/components/ui/input";
 import { 
   Table, 
@@ -18,6 +19,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuGroup,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -195,7 +197,7 @@ export default function EmployeesPage() {
               />
             </div>
             <div className="flex items-center gap-2 w-full md:w-auto">
-              <Button variant="outline" className="rounded-full w-full md:w-auto">
+              <Button variant="outline" className="rounded-full w-full md:w-auto" onClick={() => toast.info("Fitur Filter Lanjutan akan segera hadir!")}>
                 <Filter className="mr-2 h-4 w-4" /> Filter
               </Button>
             </div>
@@ -259,9 +261,11 @@ export default function EmployeesPage() {
                             <span className="sr-only">Buka menu</span>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end" className="w-[160px]">
-                            <DropdownMenuLabel>Aksi</DropdownMenuLabel>
+                            <DropdownMenuGroup>
+                              <DropdownMenuLabel>Aksi</DropdownMenuLabel>
+                            </DropdownMenuGroup>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => toast.info("Fitur Edit akan segera hadir!")}>
                               <Pencil className="mr-2 h-4 w-4" /> Edit Data
                             </DropdownMenuItem>
                             <DropdownMenuItem onClick={() => handleDeleteEmployee(emp.id)} className="text-destructive">

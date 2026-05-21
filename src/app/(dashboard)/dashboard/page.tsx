@@ -1,7 +1,11 @@
+"use client";
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { DollarSign, Users, ShoppingBag, ArrowUpRight, ArrowDownRight, CreditCard, Activity } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import Link from "next/link";
 
 export default function DashboardPage() {
   return (
@@ -12,8 +16,10 @@ export default function DashboardPage() {
           <p className="text-muted-foreground">Pantau performa bisnis Anda secara real-time.</p>
         </div>
         <div className="flex items-center space-x-2">
-          <Button variant="outline">Unduh Laporan</Button>
-          <Button>Buka Kasir (POS)</Button>
+          <Button variant="outline" onClick={() => toast.info("Fitur Unduh Laporan akan segera hadir!")}>Unduh Laporan</Button>
+          <Link href="/pos">
+            <Button>Buka Kasir (POS)</Button>
+          </Link>
         </div>
       </div>
 
