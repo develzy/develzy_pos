@@ -79,10 +79,8 @@ export function SiteHeader() {
           {/* Mobile Menu */}
           <div className="md:hidden">
             <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="md:hidden">
-                  <Menu className="h-6 w-6" />
-                </Button>
+              <SheetTrigger className={`${buttonVariants({ variant: "ghost", size: "icon" })} md:hidden`}>
+                <Menu className="h-6 w-6" />
               </SheetTrigger>
               <SheetContent side="right" className="w-[300px] sm:w-[400px] flex flex-col gap-6 pt-12 overflow-y-auto">
                 <Link href="/" className="text-lg font-bold hover:text-primary">Beranda</Link>
